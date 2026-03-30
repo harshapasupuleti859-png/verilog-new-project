@@ -1,0 +1,500 @@
+:root {
+    --bg-color: #0d1117;
+    --editor-bg: #161b22;
+    --panel-bg: #010409;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent: #58a6ff;
+    --accent-hover: #1f6feb;
+    --success: #2ea043;
+    --error: #f85149;
+    --border: #30363d;
+    --font-ui: 'Inter', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* =========================================
+   INTRO ANIMATION OVERLAY
+   ========================================= */
+#landing-page, #login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1.5s ease-in-out, visibility 1.5s;
+}
+
+#landing-page.hidden, #login-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Background animated grid simulating circuit lines */
+.circuit-grid {
+    position: absolute;
+    width: 200vw;
+    height: 200vh;
+    background-image: 
+        linear-gradient(rgba(88, 166, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 166, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    top: -50vh;
+    left: -50vw;
+    transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+    animation: gridMove 20s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes gridMove {
+    0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+    100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+}
+
+.intro-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+/* Floating Logic Gate Animations */
+.floating-symbols-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2; /* Below text (z-index 10) but above grid */
+}
+
+.floating-symbol {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    opacity: 0.15;
+    color: var(--accent);
+    animation: floatUp 15s linear infinite;
+    bottom: -150px; /* Start below screen */
+}
+
+/* Give them varying delays, durations, and horizontal positions */
+.and-gate { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+.or-gate { left: 40%; animation-duration: 12s; animation-delay: 2s; color: var(--success); }
+.not-gate { left: 65%; animation-duration: 10s; animation-delay: 4s; color: var(--error); }
+.xor-gate { left: 85%; animation-duration: 14s; animation-delay: 1s; color: #a371f7; }
+.and-gate-2 { left: 25%; animation-duration: 11s; animation-delay: 5s; color: #f1e05a; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(-15deg) scale(0.8); opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(-120vh) rotate(20deg) scale(1.5); opacity: 0; }
+}
+
+.auth-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    font-weight: 300;
+}
+
+.glitch {
+    font-size: 5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    position: relative;
+    color: white;
+    text-shadow: 0 0 10px rgba(88, 166, 255, 0.8), 0 0 20px rgba(88, 166, 255, 0.5);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #f85149;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #58a6ff;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(28px, 9999px, 83px, 0); }
+    20% { clip: rect(6px, 9999px, 18px, 0); }
+    40% { clip: rect(50px, 9999px, 120px, 0); }
+    60% { clip: rect(15px, 9999px, 94px, 0); }
+    80% { clip: rect(100px, 9999px, 10px, 0); }
+    100% { clip: rect(55px, 9999px, 76px, 0); }
+}
+@keyframes glitch-anim-2 {
+    0% { clip: rect(65px, 9999px, 100px, 0); }
+    20% { clip: rect(2px, 9999px, 50px, 0); }
+    40% { clip: rect(10px, 9999px, 20px, 0); }
+    60% { clip: rect(80px, 9999px, 140px, 0); }
+    80% { clip: rect(40px, 9999px, 5px, 0); }
+    100% { clip: rect(98px, 9999px, 45px, 0); }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.fade-in {
+    opacity: 1;
+    /* Removed animation to ensure visibility cross-browser */
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Login Box */
+.login-box {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.login-box input {
+    width: 350px;
+    padding: 15px 20px;
+    background: rgba(10, 15, 25, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: var(--font-ui);
+    backdrop-filter: blur(5px);
+    outline: none;
+    transition: box-shadow 0.3s, border-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+.login-box input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+    transform: scale(1.02);
+}
+.hidden-error {
+    color: var(--error);
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    height: 20px;
+}
+.hidden-error.visible {
+    opacity: 1;
+}
+
+.enter-button {
+    margin-top: 40px;
+    padding: 15px 40px;
+    font-size: 1rem;
+    font-family: var(--font-ui);
+    color: #fff;
+    background: transparent;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+}
+
+.enter-button:hover {
+    background: var(--accent);
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.6);
+    color: #000;
+}
+
+.pulse {
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px rgba(88,166,255,0.2); }
+    50% { box-shadow: 0 0 20px rgba(88,166,255,0.6); }
+    100% { box-shadow: 0 0 10px rgba(88,166,255,0.2); }
+}
+
+/* =========================================
+   MAIN APP INTERFACE
+   ========================================= */
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+#app-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* App Header */
+.app-header {
+    height: 50px;
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.logo-icon {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.greeting-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#user-greeting {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.logout-link {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+.logout-link:hover {
+    color: var(--error);
+    border-color: var(--error);
+    background: rgba(248, 81, 73, 0.1);
+}
+
+.run-button {
+    background-color: var(--success);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.run-button:hover {
+    background-color: #3fb950;
+    transform: translateY(-1px);
+}
+.run-button:active {
+    transform: translateY(1px);
+}
+.run-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Workspace Layout */
+.workspace {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.editor-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--editor-bg);
+    min-height: 100px; /* Minimum height before resize limit */
+    overflow: hidden;
+}
+
+.pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+}
+
+.resizer-vertical {
+    width: 6px;
+    background: var(--panel-bg);
+    cursor: col-resize;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+    z-index: 10;
+}
+
+.resizer-vertical:hover {
+    background: var(--accent);
+}
+
+/* Resizer Handle */
+.resizer {
+    height: 6px;
+    background: var(--panel-bg);
+    cursor: row-resize;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+}
+
+.resizer:hover {
+    background: var(--accent);
+}
+
+.console-panel {
+    height: 30%; /* Default starting point */
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--panel-bg);
+}
+
+.panel-header {
+    height: 35px;
+    background-color: var(--panel-bg);
+    display: flex;
+    align-items: flex-end;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.console-header {
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+.tab {
+    padding: 6px 16px;
+    background-color: var(--editor-bg);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+}
+
+.badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    background-color: var(--border);
+    color: var(--text-secondary);
+}
+.badge.success {
+    background-color: rgba(46, 160, 67, 0.2);
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+.badge.error {
+    background-color: rgba(248, 81, 73, 0.2);
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+#editor-container, #tb-editor-container {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    min-height: 0;
+}
+
+.terminal {
+    flex: 1;
+    padding: 10px 15px;
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    color: #fff;
+    overflow-y: auto;
+    background-color: #0d1117;
+}
+
+.term-line {
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.term-line.error { color: var(--error); }
+.term-line.info { color: var(--accent); }
+.term-line.success { color: var(--success); }
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--panel-bg); 
+}
+::-webkit-scrollbar-thumb {
+    background: #484f58; 
+    border-radius: 6px;
+    border: 3px solid var(--panel-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8b949e; 
+}

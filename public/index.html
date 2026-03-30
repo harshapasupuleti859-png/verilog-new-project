@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Verilog Simulator</title>
+    <meta name="description" content="A premium Verilog simulation web environment powered by Icarus Verilog">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. Landing Page with Floating Symbols -->
+    <div id="landing-page" class="intro-active">
+        <div class="floating-symbols-container">
+            <div class="floating-symbol and-gate"><svg viewBox="0 0 100 60"><path d="M 10 10 L 40 10 C 60 10 70 20 70 30 C 70 40 60 50 40 50 L 10 50 Z" fill="none" stroke="currentColor" stroke-width="4"/><line x1="70" y1="30" x2="90" y2="30" stroke="currentColor" stroke-width="4"/><line x1="10" y1="20" x2="-10" y2="20" stroke="currentColor" stroke-width="4"/><line x1="10" y1="40" x2="-10" y2="40" stroke="currentColor" stroke-width="4"/></svg></div>
+            <div class="floating-symbol or-gate"><svg viewBox="0 0 100 60"><path d="M 10 10 Q 30 30 10 50 Q 50 50 70 30 Q 50 10 10 10 Z" fill="none" stroke="currentColor" stroke-width="4"/><line x1="70" y1="30" x2="90" y2="30" stroke="currentColor" stroke-width="4"/><line x1="15" y1="20" x2="-5" y2="20" stroke="currentColor" stroke-width="4"/><line x1="15" y1="40" x2="-5" y2="40" stroke="currentColor" stroke-width="4"/></svg></div>
+            <div class="floating-symbol not-gate"><svg viewBox="0 0 100 60"><polygon points="20,10 60,30 20,50" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="68" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="4"/><line x1="76" y1="30" x2="96" y2="30" stroke="currentColor" stroke-width="4"/><line x1="20" y1="30" x2="0" y2="30" stroke="currentColor" stroke-width="4"/></svg></div>
+            <div class="floating-symbol xor-gate"><svg viewBox="0 0 100 60"><path d="M 20 10 Q 40 30 20 50 Q 60 50 80 30 Q 60 10 20 10 Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M 10 10 Q 30 30 10 50" fill="none" stroke="currentColor" stroke-width="4"/><line x1="80" y1="30" x2="100" y2="30" stroke="currentColor" stroke-width="4"/><line x1="18" y1="20" x2="-2" y2="20" stroke="currentColor" stroke-width="4"/><line x1="18" y1="40" x2="-2" y2="40" stroke="currentColor" stroke-width="4"/></svg></div>
+            <div class="floating-symbol and-gate-2"><svg viewBox="0 0 100 60"><path d="M 10 10 L 40 10 C 60 10 70 20 70 30 C 70 40 60 50 40 50 L 10 50 Z" fill="none" stroke="currentColor" stroke-width="4"/><line x1="70" y1="30" x2="90" y2="30" stroke="currentColor" stroke-width="4"/><line x1="10" y1="20" x2="-10" y2="20" stroke="currentColor" stroke-width="4"/><line x1="10" y1="40" x2="-10" y2="40" stroke="currentColor" stroke-width="4"/></svg></div>
+        </div>
+        
+        <div class="circuit-grid"></div>
+        <div class="intro-content">
+            <h1 class="glitch" data-text="VERILOG.SIM">VERILOG.SIM</h1>
+            <p class="subtitle fade-in">Hardware Description Redefined</p>
+            <button id="get-started-btn" class="enter-button fade-in pulse">GET STARTED</button>
+        </div>
+    </div>
+
+    <!-- 2. Login Overlay -->
+    <div id="login-overlay" class="hidden">
+        <div class="intro-content">
+            <h2 class="auth-title fade-in">AUTHENTICATION REQUIRED</h2>
+            <div class="login-box fade-in">
+                <input type="text" id="user-email" placeholder="Enter your email or name..." required />
+                <button id="enter-btn" class="enter-button pulse">CONNECT WORKSPACE</button>
+                <p id="login-error" class="hidden-error">Please enter a valid credential.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main IDE Interface -->
+    <div id="app-container" class="hidden">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">Verilog.Sim</span>
+            </div>
+            
+            <!-- Dynamic Welcome Greeting -->
+            <div class="greeting-box">
+                <span id="user-greeting">Welcome, Guest</span>
+                <button id="logout-btn" class="logout-link">Logout</button>
+            </div>
+
+            <div class="controls">
+                <button id="run-btn" class="run-button">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    RUN SIMULATION
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <div class="editor-panel">
+                <div class="pane design-pane">
+                    <div class="panel-header">
+                        <span class="tab active">design.v</span>
+                    </div>
+                    <div id="editor-container"></div>
+                </div>
+                
+                <div class="resizer-vertical"></div>
+                
+                <div class="pane tb-pane">
+                    <div class="panel-header tb-header">
+                        <span class="tab active">testbench.v</span>
+                    </div>
+                    <div id="tb-editor-container"></div>
+                </div>
+            </div>
+
+            <!-- Resizer -->
+            <div class="resizer" id="dragMe"></div>
+
+            <!-- Console Panel -->
+            <div class="console-panel">
+                <div class="panel-header console-header">
+                    <span class="tab active">Terminal</span>
+                    <span id="status-badge" class="badge">Idle</span>
+                </div>
+                <div id="console-output" class="terminal">
+                    <div class="term-line">System initialized. Ready for Verilog code.</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Monaco Editor Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
